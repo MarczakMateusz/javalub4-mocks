@@ -24,6 +24,7 @@ class PhotoCameraSpec extends Specification {
         PhotoCamera testCamera = new PhotoCamera(testSensor)
 
         when:
+        testCamera.writeCompleted()
         testCamera.turnOff()
 
         then:
@@ -51,14 +52,47 @@ class PhotoCameraSpec extends Specification {
         ImageSensor testSensor = Mock(ImageSensor)
         Card testCard = Mock(Card)
         PhotoCamera testCamera = new PhotoCamera(testSensor,testCard)
+        testCamera.turnOn()
 
         when:
         testCamera.pressButton()
 
         then:
-        1 * testSensor.read()
-        1 * testCard.write()
+        1 * testCard.write(testSensor.read())
 
+    }
+
+    def "Turning camera off when card is coping data wont turn off sensor"() {
+        given:
+        ImageSensor testSensor = Mock(ImageSensor)
+        Card testCard = Mock(Card)
+        PhotoCamera testCamera = new PhotoCamera(testSensor, testCard)
+        testCamera.turnOn()
+
+        when:
+        testCamera.pressButton()
+        testCamera.turnOff()
+
+        then:
+        0 * testSensor.turnOff()
+    }
+
+    def "When saving is over sensor should be turned off"(){
+        given:
+        ImageSensor testSensor = Mock(ImageSensor)
+        Card testCard = Mock(Card)
+        PhotoCamera testCamera = new PhotoCamera(testSensor, testCard)
+        testCamera.turnOn()
+
+        when:
+        testCamera.pressButton()
+        testCamera.turnOff()
+        testCamera.writeCompleted()
+        testCamera.turnOff()
+
+
+        then:
+        1 * testSensor.turnOff()
     }
 
 }
