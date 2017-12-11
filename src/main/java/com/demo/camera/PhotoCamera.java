@@ -12,10 +12,6 @@ public class PhotoCamera implements WriteListener {
         this.card = card;
     }
 
-    public PhotoCamera(ImageSensor sensor) {
-        this.cameraOn = false;
-        this.sensor = sensor;
-    }
 
     public void turnOn() {
         cameraOn = true;

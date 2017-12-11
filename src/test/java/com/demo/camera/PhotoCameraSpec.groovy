@@ -8,7 +8,8 @@ class PhotoCameraSpec extends Specification {
     def "Should power up the sensor when camera is switched on"() {
         given:
         ImageSensor testSensor = Mock(ImageSensor)
-        PhotoCamera testCamera = new PhotoCamera(testSensor)
+        Card testCard = Mock(Card)
+        PhotoCamera testCamera = new PhotoCamera(testSensor,testCard)
 
         when:
         testCamera.turnOn()
@@ -21,7 +22,8 @@ class PhotoCameraSpec extends Specification {
     def "Should power down sensor when camera is switched off"(){
         given:
         ImageSensor testSensor = Mock(ImageSensor)
-        PhotoCamera testCamera = new PhotoCamera(testSensor)
+        Card testCard = Mock(Card)
+        PhotoCamera testCamera = new PhotoCamera(testSensor,testCard)
 
         when:
         testCamera.writeCompleted()
