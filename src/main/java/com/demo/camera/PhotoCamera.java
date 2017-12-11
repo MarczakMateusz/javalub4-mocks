@@ -4,7 +4,7 @@ public class PhotoCamera implements WriteListener {
     private boolean cameraOn;
     private ImageSensor sensor;
     private Card card;
-    private boolean writeCompleted = false;
+    private boolean writeCompleted = true;
 
     public PhotoCamera(ImageSensor sensor, Card card) {
         this.cameraOn = false;
@@ -16,6 +16,7 @@ public class PhotoCamera implements WriteListener {
     public void turnOn() {
         cameraOn = true;
         sensor.turnOn();
+        writeCompleted();
 
     }
 
@@ -30,6 +31,7 @@ public class PhotoCamera implements WriteListener {
 
     public void pressButton() {
         if (cameraOn) {
+            writeNotCompleted();
             card.write(sensor.read());
         }
     }
@@ -37,6 +39,10 @@ public class PhotoCamera implements WriteListener {
     @Override
     public void writeCompleted() {
         writeCompleted = true;
+    }
+
+    public void writeNotCompleted(){
+        writeCompleted = false;
     }
 }
 

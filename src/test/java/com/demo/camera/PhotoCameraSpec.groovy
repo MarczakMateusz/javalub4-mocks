@@ -26,7 +26,6 @@ class PhotoCameraSpec extends Specification {
         PhotoCamera testCamera = new PhotoCamera(testSensor,testCard)
 
         when:
-        testCamera.writeCompleted()
         testCamera.turnOff()
 
         then:
