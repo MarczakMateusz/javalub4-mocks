@@ -4,6 +4,9 @@ import spock.lang.Specification
 
 class PhotoCameraSpec extends Specification {
 
+    def setup(){
+
+    }
 
     def "Should power up the sensor when camera is switched on"() {
         given:
@@ -87,7 +90,6 @@ class PhotoCameraSpec extends Specification {
 
         when:
         testCamera.pressButton()
-        testCamera.turnOff()
         testCamera.writeCompleted()
         testCamera.turnOff()
 

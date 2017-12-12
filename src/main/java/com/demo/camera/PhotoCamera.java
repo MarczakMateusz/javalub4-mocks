@@ -16,7 +16,7 @@ public class PhotoCamera implements WriteListener {
     public void turnOn() {
         cameraOn = true;
         sensor.turnOn();
-        writeCompleted();
+        writeCompleted = true;
 
     }
 
@@ -31,7 +31,7 @@ public class PhotoCamera implements WriteListener {
 
     public void pressButton() {
         if (cameraOn) {
-            writeNotCompleted();
+            writeCompleted = false;
             card.write(sensor.read());
         }
     }
@@ -41,8 +41,5 @@ public class PhotoCamera implements WriteListener {
         writeCompleted = true;
     }
 
-    public void writeNotCompleted(){
-        writeCompleted = false;
-    }
 }
 
